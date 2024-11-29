@@ -5,7 +5,7 @@ Array::Array(size_t n) {
     size = n;
     array = new int[size];
 }
-
+//
 Array::Array(size_t n, bool israndom) {
     size = n;
     array = new int[size];
