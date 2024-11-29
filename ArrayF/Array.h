@@ -12,6 +12,10 @@ public:
     ~Array();
 
     void Show();
+    void Random(int min, int max);
+    void Sort();
+    int Min();
+    int Max();
+    //не понимаю что требуется от функции изменения размера
 };
 
-//
