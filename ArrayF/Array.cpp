@@ -32,6 +32,15 @@ Array::Array(const Array& usar) {
     }
 }
 
+Array::Array(Array&& userArr): array(userArr.array), size(userArr.size) {
+    userArr.array = nullptr;
+    userArr.size = 0;
+}
+
+
+
+
+
 Array::~Array() {
     delete[] array;
 }
@@ -81,4 +90,16 @@ int Array::Max() {
         }
     }
     return maxVal;
+}
+
+Array& Array::operator=(Array&& userArr) {
+    Array arr(10);
+
+    arr.size = userArr.size;
+    arr.array = userArr.array;
+
+    userArr.array = nullptr;
+    userArr.size = 0;
+
+    return arr;
 }

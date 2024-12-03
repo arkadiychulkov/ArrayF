@@ -9,6 +9,7 @@ public:
     Array(size_t n, bool israndom);
     Array(size_t n, int min, int max);
     Array(const Array& usar);
+    Array(Array&& userArr);
     ~Array();
 
     void Show();
@@ -16,6 +17,6 @@ public:
     void Sort();
     int Min();
     int Max();
-    //не понимаю что требуется от функции изменения размера
+    Array& operator=(Array&& userArr);
 };
 
