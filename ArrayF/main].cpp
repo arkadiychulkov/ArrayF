@@ -10,5 +10,13 @@ int main() {
     std::cout << "Min: " << arr1.Min() << std::endl;
     std::cout << "Max: " << arr1.Max() << std::endl;
 
+    std::cout << "+: " << arr1 + arr2 << std::endl;
+    std::cout << "[]" << arr1[0] << std::endl;
+    std::cout << "<<: " << arr1 << std::endl;
+    std::cout << "==: " << (arr1 == arr2) << std::endl;
+    std::cout << "!=: " << (arr1 != arr2) << std::endl;
+    std::cout << "<: " << (arr1 < arr2) << std::endl;
+    std::cout << ">: " << (arr1 > arr2) << std::endl;
+
     return 0;
 }

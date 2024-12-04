@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 class Array {
 private:
     int* array;
@@ -17,6 +18,19 @@ public:
     void Sort();
     int Min();
     int Max();
+
+    Array& operator=(const Array& usar);
     Array& operator=(Array&& userArr);
+    Array operator+(const Array& other);
+    Array& operator+=(const Array& other);
+
+    int& operator[](size_t index);
+
+    friend std::ostream& operator<<(std::ostream& os, const Array& arr);
+
+    bool operator==(const Array& other);
+    bool operator!=(const Array& other);
+    bool operator>(const Array& other);
+    bool operator<(const Array& other);
 };
 

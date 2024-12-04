@@ -103,3 +103,78 @@ Array& Array::operator=(Array&& userArr) {
 
     return arr;
 }
+
+Array& Array::operator=(const Array& usar) {
+    Array arr(10);
+    arr.size = usar.size;
+    arr.array = new int[size];
+    for (size_t i = 0; i < size; i++) {
+        arr.array[i] = usar.array[i];
+    }
+    return arr;
+}
+
+Array Array::operator+(const Array& other) {
+    Array result(size + other.size);
+
+    for (size_t i = 0; i < size; i++) {
+        result.array[i] = this->array[i];
+    }
+
+    for (size_t i = 0; i < other.size; i++) {
+        result.array[size + i] = other.array[i];
+    }
+
+    return result;
+}
+
+Array & Array::operator+=(const Array & other) {
+    int* newArray = new int[this->size + other.size];
+
+    for (size_t i = 0; i < size; i++) {
+        newArray[i] = array[i];
+    }
+
+    for (size_t i = 0; i < other.size; i++) {
+        newArray[this->size + i] = other.array[i];
+    }
+
+    this->array = newArray;
+    this->size += other.size;
+
+    return *this;
+}
+
+int& Array::operator[](size_t index) {
+    return array[index];
+}
+
+std::ostream& operator<<(std::ostream& os, const Array& arr) {
+    for (size_t i = 0; i < arr.size; i++) {
+        os << arr.array[i] << " ";
+    }
+    os << std::endl;
+    return os;
+}
+
+bool Array::operator==(const Array& other) {
+    for (size_t i = 0; i < size; i++) {
+        if (array[i] != other.array[i]) return false;
+    }
+    return true;
+}
+
+bool Array::operator!=(const Array& other) {
+    if (*this == other)
+        return false;
+    else
+        return true;
+}
+
+bool Array::operator>(const Array& other) {
+    return this->size > other.size;
+}
+
+bool Array::operator<(const Array& other) {
+    return this->size < other.size;
+}
