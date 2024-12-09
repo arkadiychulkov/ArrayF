@@ -5,9 +5,10 @@ class Array {
 private:
     T* array;
     size_t size;
+    size_t capacity;
 
 public:
-    Array(size_t n);
+    Array();
     Array(size_t n, bool israndom);
     Array(size_t n, int min, int max);
     Array(const Array& usar);
@@ -17,8 +18,14 @@ public:
     void Show();
     void Random(int min, int max);
     void Sort();
+    void Append(T elem);
+    void resize(int newCapacity);
+    void Erase(int index);
+
     int Min();
     int Max();
+    int GetCopacity();
+    int GetSize();
 
     Array& operator=(const Array& usar);
     Array& operator=(Array&& userArr);
@@ -42,15 +49,17 @@ public:
 };
 
 template<typename T>
-Array<T>::Array(size_t n) {
-    size = n;
-    array = new int[size];
+Array<T>::Array() {
+    size = 0;
+    capacity = 10;
+    array = new int[capacity];
 }
 
 template<typename T>
 Array<T>::Array(size_t n, bool israndom) {
     size = n;
-    array = new int[size];
+    capacity = n+10;
+    array = new int[capacity];
     for (size_t i = 0; i < size; i++) {
         array[i] = rand() % 100;
     }
@@ -59,7 +68,8 @@ Array<T>::Array(size_t n, bool israndom) {
 template<typename T>
 Array<T>::Array(size_t n, int min, int max) {
     size = n;
-    array = new int[size];
+    capacity = n + 10;
+    array = new int[capacity];
     if (min <= max) {
         for (size_t i = 0; i < size; i++) {
             array[i] = min + rand() % (max - min);
@@ -70,16 +80,18 @@ Array<T>::Array(size_t n, int min, int max) {
 template<typename T>
 Array<T>::Array(const Array<T>& usar) {
     size = usar.size;
-    array = new int[size];
+    capacity = usar.capacity + 10;
+    array = new int[capacity];
     for (size_t i = 0; i < size; i++) {
         array[i] = usar.array[i];
     }
 }
 
 template<typename T>
-Array<T>::Array(Array&& userArr) : array(userArr.array), size(userArr.size) {
+Array<T>::Array(Array&& userArr) : array(userArr.array), size(userArr.size), capacity(userArr.capacity) {
     userArr.array = nullptr;
     userArr.size = 0;
+    userArr.capacity = 0;
 }
 
 
@@ -89,6 +101,8 @@ Array<T>::Array(Array&& userArr) : array(userArr.array), size(userArr.size) {
 template<typename T>
 Array<T>::~Array() {
     delete[] array;
+    size = 0;
+    capacity = 0;
 }
 
 template<typename T>
@@ -119,6 +133,51 @@ void Array<T>::Sort() {
             }
         }
     }
+}
+
+template<typename T>
+void Array<T>::resize(int newCapacity) {
+    T* newArray = new T[newCapacity];
+    for (size_t i = 0; i < size; i++) {
+        newArray[i] = array[i];
+    }
+    delete[] array;
+    array = newArray;
+    capacity = newCapacity;
+}
+
+template<typename T>
+void Array<T>::Append(T elem) {
+    if (size == capacity) {
+        resize(capacity * 2);
+    }
+    array[size++] = elem;
+}
+
+template<typename T>
+void Array<T>::Erase(int index) {
+    for (size_t i = index; i < size - 1; i++) {
+        array[i] = array[i + 1];
+    }
+    size--;
+    if (capacity < 10) {
+        resize(capacity + 10);
+    }
+}
+
+
+
+
+
+
+template<typename T>
+int Array<T>::GetCopacity() {
+    return capacity;
+}
+
+template<typename T>
+int Array<T>::GetSize() {
+    return size;
 }
 
 template<typename T>
