@@ -21,6 +21,9 @@ public:
     void Append(T elem);
     void resize(int newCapacity);
     void Erase(int index);
+    void Clear();
+    void Reserve(size_t extra);
+    void Shrink();
 
     int Min();
     int Max();
@@ -165,6 +168,23 @@ void Array<T>::Erase(int index) {
     }
 }
 
+template<typename T>
+void Array<T>::Clear() {
+    delete[] array;
+    array = new T[capacity];
+    size = 0;
+}
+
+template<typename T>
+void Array<T>::Reserve(size_t extra) {
+    resize(capacity + extra);
+}
+
+template<typename T>
+void Array<T>::Shrink() {
+        resize(size);//я сначала сделал ресайз
+}
+
 
 
 
@@ -228,7 +248,7 @@ Array<T>& Array<T>::operator=(const Array& usar) {
 
 template<typename T>
 Array<T> Array<T>::operator+(const Array& other) {
-    Array result(size + other.size);
+    Array result ;
 
     for (size_t i = 0; i < size; i++) {
         result.array[i] = this->array[i];
